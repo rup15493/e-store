@@ -6,6 +6,8 @@ import { Provider } from 'react-redux';
 import App from './App';
 import { store } from './store/store';
 import { CartProvider } from './context/cart.context';
+import { Elements } from '@stripe/react-stripe-js';
+import { stripePromise } from './utils/stripe/stripe.utils';
 
 import './index.scss';
 
@@ -15,9 +17,9 @@ render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        
+        <Elements stripe={stripePromise}>
           <App />
-       
+          </Elements>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,
