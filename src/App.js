@@ -3,29 +3,18 @@ import { useDispatch } from 'react-redux';
 
 import { Routes, Route } from 'react-router-dom';
 
-import {
-  onAuthStateChangedListener,
-  createUserDocumentFromAuth,
-} from './utils/firebase/firebase.utils';
 import Home from './routes/home/home.component';
 import Navegation from './routes/navegation/navegation.component';
 import Authentication from './routes/authentication/authentication.component';
 import Shop from './routes/shop/shop.component';
 import Checkout from './routes/checkout/checkout.component';
-import { setCurrentUser } from './store/user/user.action';
+import { checkUserSession } from './store/user/user.action';
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        createUserDocumentFromAuth(user);
-      }
-      dispatch(setCurrentUser(user));
-    });
-
-    return unsubscribe;
+    dispatch(checkUserSession());
   }, []);
 
   return (
@@ -39,9 +28,5 @@ const App = () => {
     </Routes>
   );
 };
-
-
-
-// secret key stripe sk_test_51NapKhJYq9NyJkYwf75dRqSHXVUsOS8w0FW6JlRJv1o2paazo05TSSwHcfzGypvbH4wb8QKPNXQ6oHbZ7owT4UQg00VZGDdAI6
 
 export default App;
