@@ -1,35 +1,32 @@
-import { FC } from 'react';
+import styled from 'styled-components';
 
-import ProductCard from '../product-card/product-card.component';
+import { Link } from 'react-router-dom';
 
-import {
-  CategoryPreviewContainer,
-  Title,
-  Preview,
-} from './categoriy-preview.styles';
+export const CategoryPreviewContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
 
-import { CategoryItem } from '../../store/categories/categories.types';
+  @media screen and (max-width: 800px) {
+    align-items: center;
+  }
+`;
 
-type CategoryPreviewProps = {
-  title: string;
-  products: CategoryItem[];
-};
+export const Title = styled(Link)`
+  font-size: 28px;
+  margin-bottom: 25px;
+  cursor: pointer;
+`;
 
-const CategoryPreview: FC<CategoryPreviewProps> = ({ title, products }) => {
-  return (
-    <CategoryPreviewContainer>
-      <h2>
-        <Title to={title}>{title.toUpperCase()}</Title>
-      </h2>
-      <Preview>
-        {products
-          .filter((_, idx) => idx < 4)
-          .map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-      </Preview>
-    </CategoryPreviewContainer>
-  );
-};
+export const Preview = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 20px;
 
-export default CategoryPreview;
+  @media screen and (max-width: 800px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 15px;
+    grid-row-gap: 25px;
+  }
+`;
