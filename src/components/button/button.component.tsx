@@ -13,12 +13,19 @@ export enum BUTTON_TYPE_CLASSES {
   inverted = 'inverted',
 }
 
-const getButton = (buttonType = BUTTON_TYPE_CLASSES.base): typeof BaseButton =>
-  ({
-    [BUTTON_TYPE_CLASSES.base]: BaseButton,
-    [BUTTON_TYPE_CLASSES.google]: GoogleSignInButton,
-    [BUTTON_TYPE_CLASSES.inverted]: InvertedButton,
-  }[buttonType]);
+const getButton = (
+  buttonType: BUTTON_TYPE_CLASSES = BUTTON_TYPE_CLASSES.base
+): FC<ButtonHTMLAttributes<HTMLButtonElement>> => {
+  switch (buttonType) {
+    case BUTTON_TYPE_CLASSES.google:
+      return GoogleSignInButton;
+    case BUTTON_TYPE_CLASSES.inverted:
+      return InvertedButton;
+    case BUTTON_TYPE_CLASSES.base:
+    default:
+      return BaseButton;
+  }
+};
 
 export type ButtonProps = {
   buttonType?: BUTTON_TYPE_CLASSES;
